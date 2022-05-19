@@ -15,3 +15,15 @@ console.log(arr3);
 array.splice(0,3);
 console.log(array)
 
+let markWeight = 78;
+let markHeight = 1.68;
+
+let bmiCalculator = markWeight/markHeight**2;
+console.log(bmiCalculator + 'BMI Mark');
+
+let johnWeight = 92;
+let johnHeight = 1.95;
+
+let bmiCalculatorJohn = johnWeight/johnHeight**2;
+console.log(bmiCalculatorJohn + 'BMI John');
+
