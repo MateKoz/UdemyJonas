@@ -1,29 +1,16 @@
-let years  = new Date().getFullYear();
-console.log(years);
+const btn = document.querySelector('button');
+const btnSpan = document.querySelector('.btn__span');
+const mainDiv = document.querySelector('.main__div');
 
-let birthyears = 1990;
 
-console.log(years - birthyears);
+const createElement = () => {
+    btnSpan.innerHTML = btn.textContent;
+    const newItem = document.createElement('p');
+    const newBtn = document.createElement('button');
+    newBtn.classList.add('btn__added')
+    mainDiv.append(newItem, newBtn);
+    newItem.textContent = '1231232123123131'
+    newBtn.innerHTML = 'button'
+}
 
-let array = [1,2,3,4,5,6,7,8,9];
-console.log(array)
-let arr2 = [...array];
-console.log(arr2)
-let arr3 = array;
-console.log(arr3);
-
-array.splice(0,3);
-console.log(array)
-
-let markWeight = 78;
-let markHeight = 1.68;
-
-let bmiCalculator = markWeight/markHeight**2;
-console.log(bmiCalculator + 'BMI Mark');
-
-let johnWeight = 92;
-let johnHeight = 1.95;
-
-let bmiCalculatorJohn = johnWeight/johnHeight**2;
-console.log(bmiCalculatorJohn + 'BMI John');
-
+btn.addEventListener('click', createElement);
