@@ -1,16 +1,14 @@
-const btn = document.querySelector('button');
-const btnSpan = document.querySelector('.btn__span');
-const mainDiv = document.querySelector('.main__div');
+const massMark = 95;
+const heightMark = 1.88;
+const massJohn =  55;
+const heightJohn = 1.76;
 
+const BMIMark = massMark / heightMark ** 2;
+const BMIJohn = massJohn/ heightJohn ** 2;
 
-const createElement = () => {
-    btnSpan.innerHTML = btn.textContent;
-    const newItem = document.createElement('p');
-    const newBtn = document.createElement('button');
-    newBtn.classList.add('btn__added')
-    mainDiv.append(newItem, newBtn);
-    newItem.textContent = '1231232123123131'
-    newBtn.innerHTML = 'button'
+if(BMIMark > BMIJohn) {
+    console.log(`Mark BMI ${BMIMark} is bigger than BMI John ${BMIJohn};
+     `)
+} else {
+    console.log(`John BMI ${BMIJohn} is bigger than BMI Mark ${BMIMark}`);
 }
-
-btn.addEventListener('click', createElement);
