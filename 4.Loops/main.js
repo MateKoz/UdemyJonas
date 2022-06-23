@@ -5,11 +5,11 @@
 // const mateuszArray = [
 //     'Mateusz',
 //     'Kozlowski',
-//     2037-1990,
+//     2037 - 1990,
 //     'programmer',
 //     ['Barni', "Mieszko", 'Barniulka', 'Miechujka']
 // ];
-
+//
 // for (let i = 0; i <= mateuszArray.length; i++) {
 //     console.log(mateuszArray[i], typeof mateuszArray[i]);
 //     typeArray.push(typeof  mateuszArray[i]);
@@ -91,11 +91,12 @@ const tips = [];
 const totals = [];
 
 
-for (let i = 0; i < bills.length ; i++) {
+for (let i = 0; i < bills.length; i++) {
     const tip = calcTip(bills[i]);
     tips.push(tip)
     totals.push(tip + bills[i])
 }
+
 
 console.log(tips)
 console.log(bills);
@@ -104,9 +105,9 @@ console.log(totals)
 const sumArray = function (array) {
     let sum = 0;
     let averageArray = 0;
-    for (let i = 0; i < array.length ; i++) {
-    sum += array[i];
-    averageArray = sum / array.length
+    for (let i = 0; i < array.length; i++) {
+        sum += array[i];
+        averageArray = sum / array.length
 
     }
     console.log(`Suma calej tablicy wynosi ${sum}`);
@@ -117,3 +118,4 @@ const sumArray = function (array) {
 sumArray(tips);
 sumArray(bills);
 sumArray(totals)
+
