@@ -1,25 +1,175 @@
 'use strict';
 
+//scope - zasieg funkcyjny, blokowy
+//scope - zasieg funkcyjny, blokowy
 
-function calcAge(birthYear) {
-    const date = new Date();
-    const age = date.getFullYear() - birthYear;
+// function calcAge(birthYear) {
+//     const date = new Date();
+//     const age = date.getFullYear() - birthYear;
+//
+//     function printAge() {
+//         const output = `${firstName}, you are ${age}, born in ${birthYear}`;
+//         console.log(output)
+//
+//         if (birthYear >= 1981 && birthYear <= 1996) {
+//             var millenial = true;
+//             const firstName = 'Steven'
+//             const str = `Oh, and you're a millenial, ${firstName}`;
+//             console.log(str)
+//         }
+//     }
+//
+//     printAge()
+//
+//     return age;
+// }
+//
+// const firstName = 'Mateusz';
+// calcAge(1990);
 
-    function printAge() {
-    const output = `${firstName}, you are ${age}, born in ${birthYear}`;
-        console.log(output)
 
-        if(birthYear >= 1981 && birthYear <= 1996) {
-            var millenial = true;
-            const str = `Oh, and you're a millenial, ${firstName}`;
-            console.log(str)
-        }
-    }
-    printAge()
+//hoisting
+//hoisting
 
-    return age;
-}
+// const myName = 'Mateusz';
+//
+// if(myName === 'Mateusz') {
+//     console.log(`Mateusz job is a ${job}`);
+//     const age = 2037 - 1990;
+//     console.log(age);
+//     let job = 'teacher';
+//     console.log(x)
+// };
 
 
-const firstName = 'Mateusz';
-calcAge(1990);
+//variables
+//variables
+// console.log(me);
+// console.log(job)
+// console.log(birthYear)
+//
+//
+// var me = 'Mateusz';
+// let job = 'teacher';
+// const birthYear = 1990;
+
+//function
+//function
+
+
+// console.log(addDecl(2, 3));
+// console.log(addExpr(2,3))
+// console.log(addArrow(2,3))
+//
+//
+// function addDecl(a, b) {
+//     return a + b
+// }
+//
+// const addExpr = function (a, b) {
+//     return a + b
+// }
+//
+// const addArrow = (a, b) => a + b;
+
+// console.log(numProducts);
+// console.log(!numProducts)
+// if(!numProducts) deleteShoppingCart();
+//
+// var numProducts = 10;
+//
+// function deleteShoppingCart() {
+//     console.log('all products deleted!')
+// }
+
+// var x = 1;
+// let y = 2;
+// const z = 3;
+
+
+
+//THIS
+//THIS
+//THIS
+//THIS
+
+
+// console.log(this);
+//
+// const calcAge = function (birthYear) {
+//     console.log(2037 - birthYear);
+//     console.log(this)
+// };
+//
+// calcAge(1990)
+//
+// const calcAgeArrow = birthYear => {
+//     console.log(2037 - birthYear);
+//     console.log(this)
+// };
+//
+// calcAgeArrow(1980)
+//
+//
+//
+// const mateusz = {
+//     year: 1991,
+//     calcAge: function () {
+//         console.log(2038 - this.year)
+//         console.log(this)
+//     }
+// }
+// mateusz.calcAge();
+//
+//
+// const matilda = {
+//     year: 2038,
+// };
+//
+// matilda.calcAge = mateusz.calcAge;
+// matilda.calcAge();
+//
+// const f = mateusz.calcAge;
+//
+// f();
+
+const mateusz = {
+    firstName: 'Mateusz',
+    year: 1990,
+    calcAge: function () {
+        console.log(this);
+        console.log(2037 - this.year);
+
+        // const self = this
+        // const isMillenial = function() {
+        //     console.log(self)
+        //     console.log(self.year >= 1981 && self.year <= 1996)
+        // };
+
+        const isMillenial = () => {
+            console.log(this)
+            console.log(this.year >= 1981 && this.year <= 1996)
+        };
+
+        isMillenial();
+    },
+    greet: () => console.log(`Hey ${this.firstName}`)
+};
+mateusz.greet();
+mateusz.calcAge();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
