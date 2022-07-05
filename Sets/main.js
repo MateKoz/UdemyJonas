@@ -39,10 +39,10 @@
 //     console.log(order)
 // }
 //
-// const array1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7,];
-// console.log(array1);
-// const setArray = [...new Set(array1)];
-// console.log(setArray);
+const array1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7,];
+console.log(array1);
+const setArray = [...new Set(array1)];
+console.log(setArray);
 //
 // console.log(new Set('mateuszkozlowski').size)
 //
