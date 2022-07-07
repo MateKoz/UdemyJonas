@@ -187,4 +187,13 @@ console.log(owners);
 
 movements.sort((a, b) => a - b)
 
-console.log(movements)
+console.log(movements);
+
+
+
+
+//creating th array
+
+
+const z = Array.from({length: 100}, () => Math.trunc(Math.random() * 100));
+console.log(z)
