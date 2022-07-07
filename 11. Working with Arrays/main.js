@@ -4,9 +4,10 @@
 /////////////////////////////////////////////////
 // BANKIST APP
 
+
 // Data
 const account1 = {
-    owner: 'Jonas Schmedtmann',
+    owner: 'Mateusz Kozlowski',
     movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
     interestRate: 1.2, // %
     pin: 1111,
@@ -61,28 +62,32 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
+//funkcja wyswietlajaca Current Balance
+const calcDisplayBalance = function (acc) {
+    acc.balance = acc.movements.reduce((acc, mov) =>
+        acc + mov, 0);
+    labelBalance.textContent = `${acc.balance}€`
+}
+
+
+//Funkcja Tworzaca liste wykonanych akcji z podziałem na income/Withdrawal
 const displayMovements = function (movements) {
     containerMovements.innerHTML = '';
-
-
     movements.forEach(function (mov, i) {
         const type = mov > 0 ? 'deposit' : 'withdrawal'
-
         const html = `
         <div class="movements__row">
             <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-            <div class="movements__value">${mov}</div>
+            <div class="movements__value">${mov}€</div>
         </div>
 `;
-
         containerMovements.insertAdjacentHTML('afterbegin', html)
     })
 }
 
-displayMovements(account1.movements);
+//Tworzymy usersName z pierwszych liter imienia i nazwiska
 
 const createUserNames = function (accs) {
     accs.forEach(function (acc) {
@@ -94,14 +99,104 @@ const createUserNames = function (accs) {
     })
 };
 createUserNames(accounts);
-console.log(accounts)
-createUserNames(accounts);
 
-const calcDisplayBalance = function (movements) {
-    const balance = movements.reduce((acc, mov) => acc + mov);
-    labelBalance.textContent = `${balance}$`
+const updateUI = function (acc) {
+    //Display movments
+    displayMovements(acc.movements);
+    //display balance
+    calcDisplayBalance(acc)
+    //display sallary
+    calcDisplaySummary(acc)
 }
-calcDisplayBalance(account1.movements)
+
+//Tworzymy na dole strony Income dla wszystkich akcji
+
+const calcDisplaySummary = function (acc) {
+    const incomes = acc.movements.filter(mov => mov > 0)
+        .reduce((acc, mov) => acc + mov)
+    labelSumIn.textContent = `${incomes}€`;
+
+    const outcome = acc.movements.filter(mov => mov < 0)
+        .reduce((acc, mov) => acc + mov)
+    labelSumOut.textContent = `${Math.abs(outcome)}€`
+
+    const interest = acc.movements.filter(mov => mov > 0)
+        .map(deposit => deposit * acc.interestRate / 100)
+        .filter((int, i, arr) => {
+            // console.log(arr);
+            return int >= 1;
+        })
+        .reduce((acc, int) => acc + int);
+    labelSumInterest.textContent = `${interest}€`
+}
+
+//Event handler
+
+let currentAccount;
+
+btnLogin.addEventListener('click', function (e) {
+    e.preventDefault()
+    currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
+    console.log(currentAccount);
+
+    if (currentAccount?.pin === Number(inputLoginPin.value)) {
+        //display UI and message welcome
+        labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`
+        containerApp.style.opacity = '1'
+
+        //clear inputs fields;
+        inputLoginUsername.value = inputLoginPin.value = '';
+        inputLoginPin.blur();
+
+        //update UI
+        updateUI(currentAccount)
+    }
+})
+
+btnTransfer.addEventListener('click', function (e) {
+    e.preventDefault();
+    const amount = Number(inputTransferAmount.value);
+    const receiverAcc = accounts.find(acc => acc.username === inputTransferTo.value)
+    // console.log(amount, receiverAcc);
+
+    if (amount > 0 &&
+        receiverAcc &&
+        currentAccount.balance >= amount &&
+        receiverAcc?.username !== currentAccount.username
+    ) {
+        //doing the transfer
+        currentAccount.movements.push(-amount);
+        receiverAcc.movements.push(amount)
+
+        //update UI
+        updateUI(currentAccount)
+    }
+    inputTransferTo.value = '';
+    inputTransferAmount.value = ''
+})
+
+btnClose.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    if (
+        inputCloseUsername.value === currentAccount.username &&
+        Number(inputClosePin.value) === currentAccount.pin
+    ) {
+        const index = accounts.findIndex(acc =>
+            acc.username === currentAccount.username)
+
+        //delete account
+        accounts.splice(index, 1)
+
+        //hide ui
+        containerApp.style.opacity = '0';
+        labelWelcome.textContent = `Log in to get started`
+        inputCloseUsername.value = inputClosePin.value = '';
+
+    }
+})
+
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -114,148 +209,3 @@ const currencies = new Map([
 
 
 /////////////////////////////////////////////////
-//
-// let arr = ['a', 'b', 'c', 'd', 'e'];
-// //slice method.
-// //wycinamy kawalek tablicy, slice tworzy nam nowa tablice
-//
-// console.log(arr.slice(2));
-// console.log(arr.slice(2, 4));
-// console.log(arr.slice(-1)); //ostatnie element w tablicy
-// console.log(arr.slice());//kopiowanie płytnie calej tablicy, z pustymi nawiasmai
-//
-// //splice
-// //zmienia oryginalna tablice
-// console.log(arr.splice(2))
-// console.log(arr)
-//
-// //revers odrwraca tablice
-// //concat laczy dwie tablice ze soba;
-// // np. arr1.concat(arr2)
-// //join laczenie tablocy w stringa oddzielajacym znakiem w joinie
-// //join('-')
-//
-//
-// const arr3 = [23, 11, 64];
-// console.log(arr3.at(0));
-//
-// console.log(arr3[arr3.length - 1]) //ostatni element metoda [];
-// console.log(arr3.at(-1)) // ostatni element metoda at.
-//
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-//
-// // for (const movement of movements) {
-// //     if(movement > 0) {
-// //         console.log(`You deposited ${movement}`)
-// //     } else {
-// //         console.log(`You withdrew ${Math.abs(movement)}`)
-// //     }
-// // }
-//
-// movements.forEach(item => {
-//     item > 0 ? console.log(`You deposited ${item}`)
-//         : console.log(`You withdrew ${Math.abs(item)}`)
-// })
-
-//metoda slice tworzy nam nowa tablicem ktora musimy przypisac do innej zmiennej
-//metoda splice dziala na konkretnej tablicy
-
-
-const checkDog = function (dogsJulia, dogsKate) {
-    const correctDogsJulia = dogsJulia.slice();
-    correctDogsJulia.splice(0, 1);
-    correctDogsJulia.splice(-2);
-    const dogs = correctDogsJulia.concat(dogsKate);
-    console.log(dogs)
-
-    dogs.forEach(function (dog, i) {
-        if (dog >= 3) {
-            console.log(`Dog number ${i + 1} is an adult, and is ${dog} years old`)
-        } else {
-            console.log(`Dog number ${i + 1} is still a puppy 🐶`)
-
-        }
-    })
-
-};
-// checkDog([1,2,3,4,5,6,7,8],[1,2,3,4,5])
-
-//metoda map, filter, reduce
-//metoda map, filter, reduce
-//metoda map, filter, reduce
-
-//map
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
-const euroToUsd = 1.1;
-
-// const movementsUsd = movements.map(function (mov) {
-//     return mov * euroToUsd
-// })
-const movementsUsd = movements.map(mov => mov * euroToUsd)
-
-// console.log(movements)
-// console.log(movementsUsd)
-
-const movementsDescription = movements.map((mov, i) =>
-    `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : `withdrew`} ${Math.abs(mov)} `
-)
-
-// console.log(movementsDescription)
-
-
-// const obj1 = {
-//     name: "Mateusz",
-//     surname: 'Kozlowski'
-// }
-//
-// const obj2 = {
-//     name: "Kamil",
-//     surname: 'Kamilowski'
-// }
-//
-// const obj3 = {
-//     name: "Michał",
-//     surname: 'Michalski'
-// }
-//
-// const obj4 = {
-//     name: "Darek",
-//     surname: 'Darecki'
-// };
-//
-// const objects = [obj1, obj2, obj3, obj4];
-//
-// console.log(objects)
-// const objFunction = function (objs) {
-//     objs.forEach(function (obj){
-//         obj.newProperty = obj.surname.toLowerCase();
-//     })
-// }
-// objFunction(objects)
-// console.log(objects)
-
-
-const deposits = movements.filter(function (mov) {
-    return mov > 0;
-})
-
-// console.log(deposits)
-
-const withdraws = movements.filter(mov => mov < 0)
-// console.log(withdraws)
-
-
-//reduce method
-//reduce method
-//reduce method
-
-// console.log(movements)
-const sum = movements.reduce((arr1, arr2) => arr1 + arr2,);
-
-// console.log(sum)
-
-//maximum value
-
-const maximumValue = movements.reduce((acc, mov) => acc > mov ? acc : mov);
-console.log(maximumValue)
