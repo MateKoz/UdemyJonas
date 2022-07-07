@@ -61,6 +61,9 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
 const displayMovements = function (movements) {
     containerMovements.innerHTML = '';
 
@@ -92,10 +95,13 @@ const createUserNames = function (accs) {
 };
 createUserNames(accounts);
 console.log(accounts)
-
-
 createUserNames(accounts);
 
+const calcDisplayBalance = function (movements) {
+    const balance = movements.reduce((acc, mov) => acc + mov);
+    labelBalance.textContent = `${balance}$`
+}
+calcDisplayBalance(account1.movements)
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -106,7 +112,6 @@ const currencies = new Map([
     ['GBP', 'Pound sterling'],
 ]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 //
@@ -180,7 +185,7 @@ const checkDog = function (dogsJulia, dogsKate) {
 //metoda map, filter, reduce
 
 //map
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 const euroToUsd = 1.1;
 
@@ -231,12 +236,26 @@ const movementsDescription = movements.map((mov, i) =>
 // console.log(objects)
 
 
-
-const deposits = movements.filter(function (mov){
+const deposits = movements.filter(function (mov) {
     return mov > 0;
 })
 
-console.log(deposits)
+// console.log(deposits)
 
-const withdraws = movements.filter(mov => mov <0)
-console.log(withdraws)
+const withdraws = movements.filter(mov => mov < 0)
+// console.log(withdraws)
+
+
+//reduce method
+//reduce method
+//reduce method
+
+// console.log(movements)
+const sum = movements.reduce((arr1, arr2) => arr1 + arr2,);
+
+// console.log(sum)
+
+//maximum value
+
+const maximumValue = movements.reduce((acc, mov) => acc > mov ? acc : mov);
+console.log(maximumValue)
