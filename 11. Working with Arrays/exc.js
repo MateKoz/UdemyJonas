@@ -182,18 +182,33 @@ const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 
 const owners = ['Jonas', 'Mateusz', 'Adam', 'Marta'];
 
-console.log(owners.sort())
-console.log(owners);
+// console.log(owners.sort())
+// console.log(owners);
 
 movements.sort((a, b) => a - b)
 
-console.log(movements);
-
-
+// console.log(movements);
 
 
 //creating th array
 
 
 const z = Array.from({length: 100}, () => Math.trunc(Math.random() * 100));
-console.log(z)
+// console.log(z)
+
+
+//1
+const bankDepositSum = accounts.flatMap(acc => acc.movements)
+    .filter(mov => mov > 0)
+    .reduce((sum, curr) => sum + curr, 0)
+console.log(bankDepositSum)
+
+//2
+const numDeposits1000 = accounts.flatMap(acc => acc.movements)
+    .filter(mov => mov > 1000).length;
+
+console.log(numDeposits1000)
+
+//3
+
+
