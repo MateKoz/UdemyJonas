@@ -3,11 +3,6 @@
 const Person = function (firstName, birthYear) {
     this.firstName = firstName;
     this.birthYear = birthYear;
-
-    //Nigdy tak nie nalezy robić. Niw tworzyc metody wewnąrz funkcji konstruktor
-    // this.calcAge = function () {
-    //     console.log(2037 - this.birthYear)
-    // }
 }
 
 const mateusz = new Person('Mateusz', 1990);
@@ -26,7 +21,7 @@ const jack = new Person('Jack', 1975);
 //sprawdzanie czy dany obiekt nalezy do danej instancji true/false
 // console.log(mateusz instanceof Person);
 
-Person.hey =  function () {
+Person.hey = function () {
     console.log(`Hey there`)
 }
 
@@ -83,14 +78,17 @@ class PersonCl2 {
         this.fullName = fullName;
         this.birthYear = birthYear
     }
+
 //instance methods
 //Method will be added to .prototype property.
     calcAge() {
         console.log(2038 - this.birthYear)
     }
+
     greet() {
         console.log(`Hey ${this.firstName}`)
     }
+
     get age() {
         return 2037 - this.birthYear;
     }
@@ -101,6 +99,7 @@ class PersonCl2 {
         if (name.includes(' ')) this._fullName = name;
         else alert(`${name} is not a full name!`)
     }
+
     get fullName() {
         return this._fullName
     }
@@ -166,8 +165,30 @@ steven.birthYear = 2002;
 steven.calcAge()
 console.log(steven.__proto__)
 
-
 const sarah = Object.create(PersonProto);
 sarah.init('Sarah', 1979)
 sarah.calcAge()
 
+//218. Inheritance Between "Classes": Constructor Functions
+
+const Person1 = function (firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+}
+
+Person1.prototype.calcAge1 = function () {
+    console.log(2037 - this.birthYear)
+}
+
+const Student = function (firstName, birthYear, course) {
+    Person.call(this, firstName, birthYear)
+    this.course = course;
+}
+
+Student.prototype.introduce = function (){
+    console.log(`My name is ${this.firstName} and I study ${this.course}`)
+}
+
+const mike = new Student('Mike', 2020, 'Computer Science');
+console.log(mike)
+mike.introduce()

@@ -27,12 +27,15 @@ const bmw = new Car('BMW', 120);
 const mercedes = new Car('Mercedes', 95);
 
 const ford = new Car('Ford', 120);
-console.log('=================')
-console.log(ford.speedUS);
-ford.accelerate()
-ford.accelerate()
-ford.accelerate()
-ford.accelerate()
-console.log(ford.speedUS);
-ford.speedUS = 50;
-console.log(ford)
+// console.log('=================')
+// console.log(ford.speedUS);
+// ford.accelerate()
+// ford.accelerate()
+// ford.accelerate()
+// ford.accelerate()
+// console.log(ford.speedUS);
+// ford.speedUS = 50;
+// console.log(ford)
+
+
+
